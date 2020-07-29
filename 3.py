@@ -2,6 +2,9 @@ import tkinter as tk
 
 root = tk.Tk()
 
+timer = {"left": 1200,
+         "right": 1200}
+
 tk.Label(root, text="Left player").grid(row=0, column=0)
 tk.Label(root, text="Right PLayer").grid(row=0, column=1)
 
@@ -19,7 +22,7 @@ tk.Button(root, text="stop").grid(row=2, column=1)
 c1 = tk.Button(root, text="start")
 c1.grid(row=3, column=0, columnspan=2)
 
-d1 = tk.Button(root, text="cancel")
+d1 = tk.Button(root, text="cancel", command=root.destroy)
 d1.grid(row=4, column=0, columnspan=2)
 
 root.mainloop()
