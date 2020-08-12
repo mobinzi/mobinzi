@@ -4,53 +4,79 @@ from time import sleep
 
 
 ##################################################################################################################
-def stop(side):                                                                                                  #
-    global flag                                                                                                  #
-    if side == 'left':                                                                                           #
-        flag = True                                                                                              #
-    else:                                                                                                        #
-        flag = False                                                                                             #
+def stop(side):  #
+    global flag  #
+    if side == 'left':  #
+        flag = True  #
+    else:  #
+        flag = False  #
+
+
 ##################################################################################################################
-def start(t):                                                                                                    #
-    while True:                                                                                                  #
-        sleep(1)                                                                                                 #
-        if flag:                                                                                                 #
-            timer['right'] -= 1                                                                                  #
-            m, s = divmod(timer['right'], 60)                                                                    #
-                                                                                                                 #
-            r_timer.set('%02d:%02d' % (m, s))                                                                    #
-        else:                                                                                                    #
-            timer['left'] -= 1                                                                                   #
-            m, s = divmod(timer['left'], 60)                                                                     #                                                                                                     #
-            l_timer.set('%02d:%02d' % (m, s))                                                                    #
+def begin():
+    value = time_value.get()
+    m, s = divmod(value, 60)
+    r_timer.set('%02d:%02d' % (m, s))
+    l_timer.set('%02d:%02d' % (m, s))
+    thread1 = Thread(target=start, args=(value,))  #
+    thread1.start()
+
+
 ##################################################################################################################
+def start(val):
+    timer['left'] = timer['left'] = val
+    while True:  #
+        sleep(1)  #
+        if flag:  #
+            timer['right'] -= 1  #
+            m, s = divmod(timer['right'], 60)  #
+            #
+            r_timer.set('%02d:%02d' % (m, s))  #
+        else:  #
+            timer['left'] -= 1  #
+            m, s = divmod(timer['left'], 60)  # #
+            l_timer.set('%02d:%02d' % (m, s))  #
+
+
 ##################################################################################################################
-root = tk.Tk()                                                                                                   #
+l_cnf = {'bg': '#2f3640', 'fg': '#e84118'}
+tk_cnf = {'bg': "#2f3542"}
+lr_cnf = {"bg": "#fbc531"}
+b_cnf = {'bg': '#c7ecee',
+         'activebackground': '#1e90ff',
+         'highlightbackground': '#e55039'}
 ##################################################################################################################
-timer = {'left': 1200,                                                                                           #
-         'right': 1200}                                                                                          #
-flag = False                                                                                                     #
+root = tk.Tk()  #
+root.resizable(0, 0)
+root.title('꓄ꊛꊩ')
+root.config(cnf=tk_cnf)
+
+##################################################################################################################
+timer = {}
+flag = False
 #########TIMER##########                                                                                         #
-l_timer = tk.StringVar()                                                                                         #
-l_timer.set("20:00")                                                                                             #
-r_timer = tk.StringVar()                                                                                         #
-r_timer.set("20:00")                                                                                             #
+l_timer = tk.StringVar()  #
+l_timer.set("00:00")  #
+r_timer = tk.StringVar()  #
+r_timer.set("00:00")  #
 ##################################################################################################################
-tk.Label(root, text="Left player", font=("times", 15,)).grid(row=0, column=0)                                    #
-tk.Label(root, text="Right player", font=("times", 15,)).grid(row=0, column=2, sticky=tk.N + tk.E)               #
+tk.Label(root, text="Left player", cnf=lr_cnf, font=("times", 15,)).grid(row=0, column=0)  #
+tk.Label(root, text="Right player", cnf=lr_cnf, font=("times", 15,)).grid(row=0, column=1, sticky=tk.N + tk.E)  #
 ##################################################################################################################
-tk.Label(root, textvariable=l_timer).grid(row=1, column=0)                                                       #
-                                                                                                                 #
-tk.Label(root, textvariable=r_timer).grid(row=1, column=2)                                                       #
+tk.Label(root, cnf=l_cnf, textvariable=l_timer).grid(row=1, column=0)  #
+#
+tk.Label(root, cnf=l_cnf, textvariable=r_timer).grid(row=1, column=1)  #
 ##################################################################################################################
-tk.Button(root, text="stop", bg="red", command=lambda: stop('left'), font=("times", 15,)).grid(row=2, column=0)  #
-tk.Button(root, text="stop", bg="red", command=lambda: stop('right'), font=("times", 15,)).grid(row=2, column=2),#
-                                                                                                                 #
-tk.Button(root, text="cancel", bg="yellow", command=root.destroy, font=("times", 15,)).grid(row=4, column=1)     #
+tk.Button(root, cnf=b_cnf, text="stop", command=lambda: stop('left'), font=("times", 15,)).grid(row=2, column=0,
+                                                                                                sticky=tk.W + tk.E)  #
+tk.Button(root, cnf=b_cnf, text="stop", command=lambda: stop('right'), font=("times", 15,)).grid(row=2, column=1,
+                                                                                                 sticky=tk.W + tk.E)  #
+time_value = tk.IntVar()
+tk.Entry(root, textvariable=time_value, font=("times", 15,)).grid(row=3, column=0, columnspan=2, sticky=tk.W + tk.E)
+tk.Button(root, cnf=b_cnf, text="start", command=begin, font=("times", 15)).grid(row=4, column=0, columnspan=2,
+                                                                                 sticky=tk.W + tk.E)
+tk.Button(root, cnf=b_cnf, text="cancel", command=root.destroy, font=("times", 15)).grid(row=5, column=0, columnspan=2,
+                                                                                         sticky=tk.W + tk.E)  #
 ##################################################################################################################
-                                                                                                                 #
-thread1 = Thread(target=start, args=(0,))                                                                        #
-thread1.start()                                                                                                  #
-                                                                                                                 #
-root.mainloop()                                                                                                  #
+root.mainloop()  #
 ##################################################################################################################
