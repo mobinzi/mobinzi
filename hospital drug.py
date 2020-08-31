@@ -1,6 +1,8 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 ################################################################################################################
+def callback1(arg1,arg2,arg3):
+    p1.set(n_p_1.get())
 
 def start():
     pass
@@ -48,11 +50,31 @@ tk.Button(timer,text="start",command=start).grid(row=2,column=2)
 ##############################################3#############
 tk.Button(timer,text="cancel",command=root.destroy).grid(row=3,column=0,columnspan=3,sticky=tk.E+tk.W)
 ##patient tab##################################################################################################
-patient
+patient1=tk.LabelFrame(patient,text="patient1")
+patient1.grid(row=0,column=0,padx=10)
 
+tk.Label(patient1,text="Name").grid(row=0,column=0)
+tk.Label(patient1,text="Timer").grid(row=1,column=0)
 
+n_p_1 = tk.StringVar()
+n_p_1.trace("w",callback1)
+tk.Entry(patient1,textvariable=n_p_1).grid(row=0,column=1)
 
-
+h_p_1 = tk.StringVar()
+h_p_1.set("12")
+m_p_1 = tk.StringVar()
+m_p_1.set("30")
+s_p_1 = tk.StringVar()
+s_p_1.set("30")
+f1=tk.Frame(patient1)
+f1.grid(row=1,column=1)
+tk.Spinbox(f1,
+          from_=0,
+          to=23,
+          wrap=True,
+          textvariable=h_p_1,
+          width=2,
+          state="readonly").grid(row=0,column=0)
 
 root.mainloop()
 
