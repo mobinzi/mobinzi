@@ -1,10 +1,41 @@
 import tkinter as tk
 from tkinter import Frame
 import tkinter.ttk as ttk
+from time import sleep
+from threading import Thread
 
 
-def start():
-    pass
+def time_format(seconds):
+    h = int(seconds / 3600)
+    temp = seconds % 3600
+    m = temp / 60
+    s = temp % 60
+    return "%02d:%02d:%02d"%(h,m,s)
+
+def counter(seconds,var,button):
+    button.config(state=tk.DISABLED)
+    while seconds:
+        sleep(1)
+        seconds -=1
+        var.set(time_format(seconds))
+    button.config(state=tk.ACTIVE)
+
+
+
+def start(number):
+    if number ==1:
+        seconds1 = int(h_p_1.get()) * 3600 + int(m_p_1.get()) * 60+ int(s_p_1.get())
+        th1 = Thread(target=counter,args=(seconds1,t1, b1))
+        th1.start()
+    elif number ==2:
+        seconds2 = int(h_p_2.get()) * 3600 + int(m_p_2.get()) * 60+ int(s_p_2.get())
+        th2 = Thread(target=counter,args=(seconds2,t2,b2))
+        th2.start()
+    else:
+        seconds3 = int(h_p_3.get()) * 3600 + int(m_p_3.get()) * 60+ int(s_p_3.get())
+        th3 = Thread(target=counter,args=(seconds3,t3,b3))        
+        th3.start()
+
 
 def callback1(arg1, arg2, arg3):
     p1.set(n_p_1.get())
@@ -57,9 +88,12 @@ t3 = tk.StringVar()
 t3.set('00:00:00')
 tk.Label(timer, textvariable=t3).grid(row=1, column=2)
 # ########### Timer Third Row Buttons ########## #
-tk.Button(timer, text='Start', command=start).grid(row=2, column=0)
-tk.Button(timer, text='Start', command=start).grid(row=2, column=1)
-tk.Button(timer, text='Start', command=start).grid(row=2, column=2)
+b1 = tk.Button(timer, text='Start', command=lambda: start(1))
+b1.grid(row=2, column=0)
+b2 = tk.Button(timer, text='Start', command=lambda: start(2))
+b2.grid(row=2, column=1)
+b3 = tk.Button(timer, text='Start', command=lambda: start(3))
+b3.grid(row=2, column=2)
 # ######## Timer Last Row Cancel Button ######## #
 tk.Button(timer, text='Cancel', command=root.destroy).grid(row=3, column=0, columnspan=3, sticky=tk.E+tk.W)
 # ############ Patient 1 Name Timer ############ #
