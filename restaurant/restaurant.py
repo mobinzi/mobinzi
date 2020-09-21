@@ -6,6 +6,14 @@ bgc = {
     'bg': '#64ffda'
 }
 
+i = {
+    "1":{"name": "akbar chicken",
+         "rating":5,
+         "review":128,
+         "price":2
+         "img": },
+}
+
 root = tk.Tk()
 
 note = ttk.Notebook()
@@ -22,9 +30,15 @@ note.add(rescipt, text="Rescipt")
 # ###################foods################### #
 f1 = tk.Frame(food,bg='#64ffda')
 f1.grid(row=0, column=0)
-tk.Label(f1, text="akbar chicken",bg="#ff3d00").grid(row=0, column=0)
-tk.Label(f1,text="★★★★★",cnf=bgc).grid(row=1,column=0)
-tk.Label(f1,text="2$$$$",cnf=bgc).grid(row=2,column=0)
+
+name = i["1"]["name"]
+tk.Label(f1, text=name,bg="#ff3d00").grid(row=0, column=0)
+
+rating = i["1"]["rating"] * "★" + "("+str(i["1"]["review"])+")"
+tk.Label(f1,text=rating,cnf=bgc).grid(row=1,column=0)
+
+price = str(i["1"]["rating"]) +"$"
+tk.Label(f1,text=price,cnf=bgc).grid(row=2,column=0)
 ####################
  
 
