@@ -1,6 +1,6 @@
 import tkinter as tk
 import tkinter.ttk as ttk
-
+from tkinter import PhotoImage
 
 bgc = {
     'bg': '#64ffda'
@@ -10,8 +10,8 @@ i = {
     "1":{"name": "akbar chicken",
          "rating":5,
          "review":128,
-         "price":2
-         "img": },
+         "price":2,
+         "img":"restaurant/images/e.gif"},
 }
 
 root = tk.Tk()
@@ -39,7 +39,10 @@ tk.Label(f1,text=rating,cnf=bgc).grid(row=1,column=0)
 
 price = str(i["1"]["rating"]) +"$"
 tk.Label(f1,text=price,cnf=bgc).grid(row=2,column=0)
+
+img = PhotoImage(file=i["1"]["img"]).subsample(2)
+tk.Label(f1,image=img).grid(row=0,column=1,rowspan=3)
 ####################
- 
+
 
 root.mainloop()
