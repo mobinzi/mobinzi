@@ -19,6 +19,13 @@ i = {
          "img":"restaurant/images/e.gif"},
 }
 
+d= {
+     0:{"name": "cola",
+           "price":2},
+     1:{"name": "istak",
+            "price":3}      
+
+}
 root = tk.Tk()
 
 note = ttk.Notebook()
@@ -49,6 +56,15 @@ for j in range(len(i)):
     img = PhotoImage(file=i["1"]["img"]).subsample(2)
     tk.Label(f1,image=img).grid(row=0,column=1,rowspan=3)
 ####################
+for s in range(len(d)):
+    food1 = tk.Frame(drink , cnf=bgc ) 
+    food1.grid(row=s , column = 0 , sticky = tk.E+tk.W)
 
+    name = d[s]["name"]
+    tk.Label(food1, text = name, cnf=bgc ).grid(row = 0 , column = 0 , pady = 5 , padx = 5 )
+
+    
+    price = str(d[s]["price"]) + "$"
+    tk.Label(food1, text = price , cnf=bgc ).grid(row = 2 , column = 0 , pady = 5 )
 
 root.mainloop()
