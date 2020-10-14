@@ -6,17 +6,26 @@ bgc = {
     'bg': '#64ffda'
 }
 
+def cnt(sign,j):
+    j=int(j)
+    
+    if sign == "+":
+        d[j][]
+    else:
+        print("-",j)
+    count[j].set
+
 i = {
     "1":{"name": "akbar chicken",
          "rating":5,
          "review":128,
          "price":2,
-         "img":"restaurant/images/e.gif"},
+         "img":"images/e.gif"},
     "2":{"name": "akbar chicken",
          "rating":5,
          "review":128,
          "price":2,
-         "img":"restaurant/images/e.gif"},
+         "img":"images/e.gif"},
 }
 
 d= {
@@ -55,6 +64,17 @@ for j in range(len(i)):
 
     img = PhotoImage(file=i["1"]["img"]).subsample(2)
     tk.Label(f1,image=img).grid(row=0,column=1,rowspan=3)
+    
+    tk.Label(food,text=i[j]["count"],font=("times",15),bg="#ffc107").grid(row=0,column=1,sticky=tk.s)
+    tk.Button(food,text="+",command=lambda x=str(j):cnt("+",x)).grid(row=0,column=2)
+    tk.Button(food,text="-",command=lambda y=str(j):cnt("-",x)).grid(row=0,column=3)
+
+    des = i[j]["des"]
+    tk.Message(f1,
+       
+           
+    
+    )
 ####################
 for s in range(len(d)):
     food1 = tk.Frame(drink , cnf=bgc ) 
