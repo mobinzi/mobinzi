@@ -2,6 +2,12 @@ import tkinter as tk
 import tkinter.ttk as ttk
 import hashlib
 import json
+import datetime
+
+
+def get_datetime():
+    frm = "%A,  %H::%M:%S,  %B-%d-%Y"
+    return datetime.datetime.now().strftime(frm)
 
 
 def read_json(address):
@@ -25,12 +31,26 @@ def register():
    form_user.set("")
    form_pass.set("") 
    file=read_json("names.json")
-   data={"username":input_user,"password":input_pass}
+   data={
+       "username":input_user,
+       "password":input_pass
+       "created":get_datetime(),
+    }
    file.append(data)
    write_json("names.json",file)
+   
+
+
 
 def login():
-    pass
+    username= login_user.get()
+    password= to_sha1(login_pass.get())
+    file= read_json("names.json")
+    for person in file:
+        if person["username"]== username:
+            if person["password"]== password:
+                print("eyval dadash")
+
 
 
 
