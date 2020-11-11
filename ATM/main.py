@@ -3,7 +3,7 @@ import tkinter.ttk as ttk
 import hashlib
 import json
 import datetime
-
+from tkinter import messagebox
 
 def get_datetime():
     frm = "%A,  %H::%M:%S,  %B-%d-%Y"
@@ -26,37 +26,54 @@ def to_sha1(password):
 
 
 def register():
-   input_user =form_user.get()
-   input_pass =to_sha1(form_pass.get())
-   form_user.set("")
-   form_pass.set("") 
-   file=read_json("names.json")
-   data={
-       "username":input_user,
-       "password":input_pass
-       "created":get_datetime(),
-    }
-   file.append(data)
-   write_json("names.json",file)
-   
+    input_user = form_user.get()
+    file= read_json("names.json")
+    all_user=[]
+    if input_user not in all_user:
+        input_user =form_user.get()
+        input_pass =to_sha1(form_pass.get())
+        form_user.set("")
+        form_pass.set("") 
+        file=read_json("names.json")
+        data={
+           "username":input_user,
+           "password":input_pass,
+           "created":get_datetime(),
+        }
+        file.append(data)
+        write_json("names.json",file)
+    else:
+       messagebox.showerror("Username Error","This username is not available ")   
 
-
+def find_person(file,username):
+    for person in file:
+        if person["username"] == username:
+            return person
+    messagebox.showerror("Username Erorr","Entered inavalid username")       
+    return None
 
 def login():
     username= login_user.get()
     password= to_sha1(login_pass.get())
     file= read_json("names.json")
-    for person in file:
-        if person["username"]== username:
-            if person["password"]== password:
-                print("eyval dadash")
-
+    person = find_person(file,username)
+    if person is None:
+        pass
+    else:
+        if person["password"]== password:
+            top.deiconify()
+            root.withdraw()
+        else:
+            messagebox.showerror("password Erorr","Entered inavalid password")  
 
 
 
 root=tk.Tk()
 root.title("Bank")
-#top=tk.Toplevel()
+
+top=tk.Toplevel()
+top.title("main menu")
+top.withdraw()
 note= ttk.Notebook()
 register_form= tk.Frame()
 login_form=tk.Frame()
