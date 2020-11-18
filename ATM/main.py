@@ -7,12 +7,16 @@ from tkinter import messagebox
 import random
 
 def deposite():
-    dps = Toplevel()
+    def deposite_destroy():
+        dps.destroy()
+        top.deiconify()
+    top.withdraw()
+    dps = tk.Toplevel()
     tk.Label(dps, text="amount").grid(row=0,column=0)
     deposite_amount= tk.IntVar()
     tk.Entry(dps,textvariable=deposite_amount).grid(row=0,column=1)
     tk.Button(dps, text="deposite").grid(row=1,column=0,columnspan=2)
-    tk.Button(dps, text="close").grid(row=2,column=0,columnspan=2)
+    tk.Button(dps, text="close",command=deposite_destroy).grid(row=2,column=0,columnspan=2)
     
     
 def get_card_number():
@@ -46,7 +50,7 @@ def to_sha1(password):
 def register():
     input_user = form_user.get()
     file= read_json("names.json")
-    all_user=[]
+    all_users=[]
     for person in file:
         all_users.append(person["username"])
     if not input_user:
@@ -72,9 +76,11 @@ def register():
        messagebox.showerror("Username Error","This username is not available ")   
 
 def find_person(file,username):
+    index=0
     for person in file:
         if person["username"] == username:
-            return person
+            return person,index
+            index+=1
     messagebox.showerror("Username Erorr","Entered inavalid username")       
     return None
 
