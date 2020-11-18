@@ -6,8 +6,15 @@ import datetime
 from tkinter import messagebox
 import random
 
-
-
+def deposite():
+    dps = Toplevel()
+    tk.Label(dps, text="amount").grid(row=0,column=0)
+    deposite_amount= tk.IntVar()
+    tk.Entry(dps,textvariable=deposite_amount).grid(row=0,column=1)
+    tk.Button(dps, text="deposite").grid(row=1,column=0,columnspan=2)
+    tk.Button(dps, text="close").grid(row=2,column=0,columnspan=2)
+    
+    
 def get_card_number():
     last = read_json("names.json")
     if not last:
@@ -119,7 +126,7 @@ tk.Entry(login_form,textvariable=login_pass).grid(row=1,column=1)
 tk.Button(login_form,text="login",command=login).grid(row=2,column=0,columnspan=2,sticky=tk.W+tk.E)
 ###############toplevel#######################################
 tk.Button(top,text="transfer",command=login).grid(row=0,column=0,sticky=tk.W+tk.E)
-tk.Button(top,text="deposite",command=login).grid(row=0,column=1,sticky=tk.W+tk.E)
+tk.Button(top,text="deposite",command=deposite).grid(row=0,column=1,sticky=tk.W+tk.E)
 tk.Button(top,text="balance",command=login).grid(row=1,column=0,sticky=tk.W+tk.E)
 tk.Button(top,text="change paswword",command=login).grid(row=1,column=1,sticky=tk.W+tk.E)
 tk.Button(top,text="+1000",command=root.destroy).grid(row=2,column=0,sticky=tk.W+tk.E)
