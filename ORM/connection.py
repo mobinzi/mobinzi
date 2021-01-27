@@ -1,5 +1,5 @@
-sqlalchemy import create_engine
-sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
 
 class connection:
@@ -7,7 +7,7 @@ class connection:
         self.engine = create_engine("mysql://poulstar:poulstar@localhost/juniors")
 
     def get_connection(self):
-        return.create_engine
+        return self.engine
 
     def create_session(self):
         Session = sessionmaker(bind=self.get_connection())
