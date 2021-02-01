@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 
-class connection:
+class Connection:
     def __init__(self):
         self.engine = create_engine("mysql://poulstar:poulstar@localhost/juniors")
 
@@ -11,4 +11,4 @@ class connection:
 
     def create_session(self):
         Session = sessionmaker(bind=self.get_connection())
-        return Session
+        return Session()
